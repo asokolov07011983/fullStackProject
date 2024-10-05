@@ -1,24 +1,27 @@
-import React from 'react';
+import React from "react";
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {Paths} from "./paths";
-import {createBrowserRouter} from "react-router-dom";
+import { Paths } from "./paths";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Home } from "./pages/home";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
 
 const router = createBrowserRouter([
     {
         path: Paths.home,
-        element: <h1>Home</h1>
+        element: <Home />
     },
     {
         path: Paths.login,
-        element: <h1>Login</h1>
+        element: <Login />
     },
     {
         path: Paths.register,
-        element: <h1>Register</h1>
+        element: <Register />
     },
 ])
 
@@ -28,7 +31,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-        <p>App</p>
+        <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
