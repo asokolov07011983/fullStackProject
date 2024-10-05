@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout } from "../../components/Layout";
 import {Card, Form, Row, Space, Typography} from "antd";
 import { CustomInput } from "../../components/CustomInput";
@@ -7,8 +8,29 @@ import { CustomBtn } from "../../components/CustomBtn";
 import { Paths } from "../../paths";
 
 import styles from "./index.module.css";
+import {useLoginMutation, UserData} from "../../app/services/auth";
+import {isErrorWithMessage} from "../../utils/usErrorWithMessage";
+import {ErrorWithMessage} from "../../types";
+import {ErrorMessage} from "../../components/ErrorMessage";
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const [userLogin, loginUserResult] = useLoginMutation();
+    const [error, setError] = useState<string>('');
+    const login = async (data: UserData) => {
+        try {
+            await userLogin(data).unwrap();
+            navigate('/');
+        } catch(err) {
+            const isError = isErrorWithMessage(err);
+            if(isError) {
+                setError(err.data.message);
+            } else {
+                setError('Неизвестная ошибка')
+            }
+        }
+    };
+
     return (
         <Layout>
             <Row
@@ -22,7 +44,7 @@ export const Login = () => {
                     }}
                 >
                     <Form
-                        onFinish={() => null}
+                        onFinish={ login }
                     >
                         <CustomInput
                             type='email'
@@ -48,6 +70,7 @@ export const Login = () => {
                                 Нет аккаунта?
                                 <Link to={Paths.register}>Зарегистрируйтесь</Link>
                             </Typography.Text>
+                            <ErrorMessage message={error} />
                         </Space>
                     </Form>
                 </Card>
