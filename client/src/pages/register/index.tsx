@@ -1,6 +1,12 @@
+
+import { Layout } from "../../components/Layout";
+
 import styles from "./index.module.css";
 export const Register = () => {
     return (
-        <>Register</>
+        <Layout>
+            <p>Register</p>
+        </Layout>
+
     )
 }

@@ -1,7 +1,9 @@
+import { Layout } from "../../components/Layout";
+
 export const Home = () => {
     return (
-        <>
-            Home
-        </>
+        <Layout>
+            <p>Home</p>
+        </Layout>
     )
-}
+};

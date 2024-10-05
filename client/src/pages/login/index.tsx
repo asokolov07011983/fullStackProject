@@ -1,6 +1,14 @@
+
+import {Layout} from "../../components/Layout";
+
+
+
 import styles from "./index.module.css";
 export const Login = () => {
     return (
-        <>Login</>
+        <Layout>
+            <p>Login</p>
+        </Layout>
+
     )
 }
