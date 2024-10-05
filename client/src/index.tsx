@@ -3,12 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
 import { Paths } from "./paths";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { ConfigProvider, theme } from "antd";
+
+import './index.css';
 
 
 const router = createBrowserRouter([
@@ -32,7 +34,13 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-        <RouterProvider router={router} />
+        <ConfigProvider
+            theme={{
+                algorithm: theme.darkAlgorithm
+            }}
+        >
+            <RouterProvider router={router} />
+        </ConfigProvider>
     </Provider>
   </React.StrictMode>
 );
