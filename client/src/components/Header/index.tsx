@@ -1,13 +1,24 @@
 import { Layout, Space, Typography, Button } from "antd";
 
 import styles from "./index.module.css"
-import {LoadingOutlined, LoginOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
+import { LoginOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
 import {CustomBtn} from "../CustomBtn";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Paths} from "../../paths";
-import {Login} from "../../pages/login";
+import {useDispatch, useSelector} from "react-redux";
+import {logout, selectUser} from "../../features/auth/authSlice";
 
 export const Header = () => {
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const onLogoutClick = () => {
+        dispatch((logout()));
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
+
     return (
         <Layout.Header className={styles.header}>
             <Space>
@@ -20,28 +31,42 @@ export const Header = () => {
                     </CustomBtn>
                 </Link>
             </Space>
-            <Space>
-                <Link to={Paths.login}>
-                    <CustomBtn
-                        type='default'
-                        shape='round'
-                        icon={<LoginOutlined />}
-                    >
-                        Login
-                    </CustomBtn>
+                {
+                    user
+                        ?
+                        <CustomBtn
+                                type='default'
+                                shape='round'
+                                icon={<LoginOutlined />}
+                                onClick={onLogoutClick}
+                        >
+                          Logout
+                        </CustomBtn>
 
-                </Link>
-                <Link to={Paths.register}>
-                    <CustomBtn
-                        type='default'
-                        shape='round'
-                        icon={<UserOutlined />}
-                    >
-                        Register
-                    </CustomBtn>
+                        :
+                        <Space>
+                            <Link to={Paths.login}>
+                                <CustomBtn
+                                    type='default'
+                                    shape='round'
+                                    icon={<LoginOutlined />}
+                                >
+                                    Login
+                                </CustomBtn>
 
-                </Link>
-            </Space>
+                            </Link>
+                            <Link to={Paths.register}>
+                            <CustomBtn
+                            type='default'
+                            shape='round'
+                            icon={<UserOutlined />}
+                            >
+                            Register
+                            </CustomBtn>
+                            </Link>
+                        </Space>
+                }
+
         </Layout.Header>
     )
 }

@@ -5,7 +5,7 @@ export const Auth: FC<any> = ({ children }) => {
     const { isLoading } = useCurrentQuery();
 
     if(isLoading) {
-        return <span>Загрузка</span>
+        return <span>Загрузка...</span>
     }
     return children
 }
