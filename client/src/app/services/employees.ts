@@ -29,11 +29,19 @@ export const employeesApi = api.injectEndpoints({
             })
         }),
         addEmployee: builder.mutation<Employee, Employee>({
-            query: (Employee) => ({
-                url: `/employees/add`,
-                method: 'POST',
-                body: { Employee }
-            })
+            query: (employee) => {
+                console.log('addEmployee called with:', employee); // Логирование данных
+                return {
+                    url: '/employees/addEmployee',
+                    method: 'POST',
+                    body: employee// Распаковка объекта employee
+                };
+            }
+            // query: (employee) => ({
+            //     url: `/employees/addEmployee`,
+            //     method: 'POST',
+            //     body: employee
+            // })
         }),
     })
 });

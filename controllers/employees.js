@@ -23,11 +23,12 @@ const all = async (req, res) => {
  */
 
 const addEmployee = async (req, res) => {
+    console.log('123123')
     try {
         const data = req.body;
-        if(!data.firstName || !data.lastName || !data.adress || !data.age) {
+        if(!data.firstName || !data.lastName || !data.address || !data.age) {
             return res.status(400).json({
-                message: 'Все поля обязательны!'
+                message: 'Все поля обязательны!11'
             });
         }
 

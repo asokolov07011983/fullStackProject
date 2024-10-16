@@ -26,7 +26,8 @@ export const Login = () => {
             if(isError) {
                 setError(err.data.message);
             } else {
-                setError('Неизвестная ошибка')
+
+                setError('Неизвестная ошибка1')
             }
         }
     };
